@@ -1,0 +1,1349 @@
+UI
+-------------------
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Trial.aspx.cs" Inherits="UI_practice.Trial" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Student Registration</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <div class="container mt-5">
+            <h2 class="mb-4">Student Registration Form</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Student Information</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lblItemName">Student Name:</label>
+                                <asp:TextBox ID="txtItemName" runat="server" CssClass="form-control" placeholder="Enter Student Name"></asp:TextBox>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lblRates">Rates</label>
+                                <asp:TextBox ID="txtRates" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ddlBranch">Select Category:</label>
+                                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control">
+                                    <asp:ListItem Text="Bachelor's Degree" Value="Bachelors"></asp:ListItem>
+                                    <asp:ListItem Text="Master's Degree" Value="Masters"></asp:ListItem>
+                                    <asp:ListItem Text="Doctorate Degree" Value="Doctorate"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lblBranch">Balance:</label>
+                                <textarea id="txtBalalnceQty" runat="server" class="form-control" placeholder="Enter Branch"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="txtCompany">Company:</label>
+                                <asp:TextBox ID="txtCompany" runat="server" CssClass="form-control" placeholder="Enter Company"></asp:TextBox>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Gender:</label><br />
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <asp:RadioButton ID="RadioButtonMale" runat="server" Text="Male" GroupName="Gender" CssClass="mr-2" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <asp:RadioButton ID="RadioButtonFemale" runat="server" Text="Female" GroupName="Gender" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 text-right">
+                            <div class="form-group">
+                                <asp:Button ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" Text="Submit" CssClass="btn btn-primary" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="btn btn-primary" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row"></div>
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h3 style="padding-bottom: 25px;">ItemEntry Details</h3>
+                    </div>
+                    <div>
+                        <div class="input-group mb-3">
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control small-search" placeholder="Search..." />
+                            <div class="input-group-append">
+                                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <asp:GridView ID="grdItemEntry" runat="server" CssClass="table table-bordered table-striped" AutoGenerateColumns="false" EnableViewState="true">
+                            <Columns>
+                                <asp:TemplateField ItemStyle-Width="30px" HeaderText="Item Name">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblItemNamereport" runat="server" Text='<%#Eval("Item_Name") %>' CssClass="control-label"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                <asp:TemplateField ItemStyle-Width="30px" HeaderText="Department">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblDepartmentreport" runat="server" Text='<%#Eval("Rate") %>' CssClass="control-label"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                <asp:TemplateField ItemStyle-Width="30px" HeaderText="Vendor">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblVendorreport" runat="server" Text='<%#Eval("Category") %>' CssClass="control-label"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                                <asp:TemplateField ItemStyle-Width="30px" HeaderText="Quantity">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblQuantityreport" runat="server" Text='<%#Eval("Balance_Quantity") %>' CssClass="control-label"></asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Actions" HeaderStyle-Width="5%">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkUpdate" runat="server" CommandArgument='<%# Eval("Item_Id") %>' CommandName="EditProject" ToolTip="Edit">Edit
+                                        </asp:LinkButton>
+                                        <asp:LinkButton ID="lnkDelete" runat="server" CommandArgument='<%# Eval("Item_Id") %>' CommandName="DeleteProject" ToolTip="Delete"> Delete
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+
+                            </Columns>
+                        </asp:GridView>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
+----------------------------------------------------
+web file.aspx
+----------------------------------------------------
+<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="UserMaster.aspx.cs" Inherits="Inventory.Web.UserMaster" Async="true" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <style>
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 40px; /* Adjust width */
+                height: 20px; /* Adjust height */
+            }
+
+                .switch input {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                -webkit-transition: .4s;
+                transition: .4s;
+                border-radius: 20px; /* Adjust border-radius */
+            }
+
+                .slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 16px; /* Adjust height */
+                    width: 16px; /* Adjust width */
+                    left: 2px; /* Adjust left */
+                    bottom: 2px; /* Adjust bottom */
+                    background-color: white;
+                    -webkit-transition: .4s;
+                    transition: .4s;
+                    border-radius: 50%; /* Make it a circle */
+                }
+
+            input:checked + .slider {
+                background-color: #21f359;
+            }
+
+            input:focus + .slider {
+                box-shadow: 0 0 1px #2196F3;
+            }
+
+            input:checked + .slider:before {
+                -webkit-transform: translateX(20px); /* Adjust translation */
+                -ms-transform: translateX(20px); /* Adjust translation */
+                transform: translateX(20px); /* Adjust translation */
+            }
+
+            /* Rounded sliders */
+            .slider.round {
+                border-radius: 20px;
+            }
+
+            .photo-upload {
+                position: relative;
+            }
+
+            .photo-preview {
+                width: 100px;
+                height: 100px;
+                border: 1px solid #ccc;
+                overflow: hidden;
+                margin-bottom: 10px;
+            }
+
+                .photo-preview img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+            .choose-file-btn {
+                display: inline-block;
+                padding: 8px 15px;
+                background-color: #007bff;
+                color: #fff;
+                cursor: pointer;
+            }
+
+            input[type="file"] {
+                display: none;
+            }
+
+            #noFileChosen {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            #uploadBtn {
+                display: none;
+                padding: 8px 15px;
+                background-color: #28a745;
+                color: #fff;
+                cursor: pointer;
+            }
+
+            .file-upload input[type="file"] {
+                display: none;
+            }
+
+            .file-upload .choose-file-btn {
+                padding: 8px 15px;
+                background-color: #007bff;
+                color: #fff;
+                cursor: pointer;
+                border: none;
+                display: inline-block;
+            }
+
+            .file-upload .file-name {
+                margin-left: 10px;
+            }
+
+            .label-box {
+                border: 1px solid #ccc;
+                padding: 10px;
+            }
+
+                .label-box ul {
+                    list-style: none;
+                    padding: 0;
+                }
+
+                    .label-box ul li::before {
+                        content: "\2605";
+                        color: #ff9900;
+                        margin-right: 5px;
+                    }
+
+            .mandatory-label::before {
+                content: "* ";
+                color: red;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    </head>
+    <body class="bg-theme bg-theme1">
+
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <div class="row mt-3">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-title">Student Information:</div>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-md-4">
+                                        <asp:Label ID="lblName" runat="server" Text="Student Name" CssClass="mandatory-label"></asp:Label>
+                                        <asp:TextBox ID="txtName" runat="server" placeholder="Enter Student Name" CssClass="form-control"></asp:TextBox>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <asp:Label ID="lblUserName" runat="server" Text="Date of Birth" CssClass="mandatory-label"></asp:Label>
+                                        <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+
+                                    <div class="col-md-4">
+                                        <asp:Label ID="lblSelectUsertype" runat="server" Text="Select Branch" CssClass="mandatory-label"></asp:Label>
+                                        <asp:DropDownList ID="txtUsertype" runat="server" CssClass="form-control">
+                                            <asp:ListItem Text="Bachelor's Degree" Value="Bachelors"></asp:ListItem>
+                                            <asp:ListItem Text="Master's Degree" Value="Masters"></asp:ListItem>
+                                            <asp:ListItem Text="Doctorate Degree" Value="Doctorate"></asp:ListItem>
+                                        </asp:DropDownList>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <asp:Label ID="lblbranch" runat="server" Text="Branch" CssClass="mandatory-label"></asp:Label>
+                                        <asp:TextBox ID="txtbranchid" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <asp:Label ID="lblcompany" runat="server" Text="Company" CssClass="mandatory-label"></asp:Label>
+                                        <asp:TextBox ID="txtCompanyid" runat="server" CssClass="form-control"></asp:TextBox>
+                                    </div>
+
+                                    </div>
+
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <asp:LinkButton ID="btnSubmit" runat="server" OnClick="btnSubmit_Click" CssClass="btn btn-light px-5" Visible="false"> <i class="icon-lock"></i> Submit</asp:LinkButton>
+                                        <asp:LinkButton ID="btnUpdate" runat="server" OnClick="btnUpdate_Click" CssClass="btn btn-light px-5" Visible="false"> <i class="icon-lock"></i> Update</asp:LinkButton>
+                                        &nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                     <div class="row"></div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div>
+                                    <h3 style="padding-bottom: 25px;">ItemEntry Details</h3>
+                                </div>
+                                <div>
+                              
+                                </div>
+                                <div class="table-responsive">
+                                    <asp:GridView ID="grdItemEntry" runat="server" CssClass="table table-bordered table-striped" AutoGenerateColumns="false" EnableViewState="true" DataKeyNames="Id">
+                                        <Columns>
+                                            <asp:TemplateField ItemStyle-Width="30px" HeaderText="Item Name">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblItemNamereport" runat="server" Text='<%#Eval("Name") %>' CssClass="control-label"></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+
+                                             <asp:TemplateField ItemStyle-Width="30px" HeaderText="Department">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblDepartmentreport" runat="server" Text='<%#Eval("UserName") %>' CssClass="control-label"></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+
+                                            <asp:TemplateField ItemStyle-Width="30px" HeaderText="Vendor">
+                                                <ItemTemplate>
+                                                    <asp:Label ID="lblVendorreport" runat="server" Text='<%#Eval("UserType") %>' CssClass="control-label"></asp:Label>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+
+                                            <asp:TemplateField HeaderText="Actions" HeaderStyle-Width="5%">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="lnkupdate" runat="server" AutoPostBack="true" CommandArgument='<%#Eval("Id") %>' CommandName="EditProject" OnClick="lnkupdate_Click"  ToolTip="View"><i class="fa fa-edit" style="font-size:18px"></i></asp:LinkButton>
+                                                     <asp:LinkButton ID="lnkDelete" runat="server" AutoPostBack="true" CommandArgument='<%# Eval("Id") %>' CommandName="Deleteproject" OnClick="lnkDelete_Click" ToolTip="Delete"><i class="fa fa-trash" style="font-size:18px"></i> </asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <!-- Bootstrap core JavaScript-->
+                <script src="assets/js/jquery.min.js"></script>
+                <script src="assets/js/popper.min.js"></script>
+                <script src="assets/js/bootstrap.min.js"></script>
+
+                <!-- simplebar js -->
+                <script src="assets/plugins/simplebar/js/simplebar.js"></script>
+                <!-- sidebar-menu js -->
+                <script src="assets/js/sidebar-menu.js"></script>
+                <!-- loader scripts -->
+                <script src="assets/js/jquery.loading-indicator.js"></script>
+                <!-- Custom scripts -->
+                <script src="assets/js/app-script.js"></script>
+                <!-- Chart js -->
+
+                <script src="assets/plugins/Chart.js/Chart.min.js"></script>
+
+                <!-- Index js -->
+                <script src="assets/js/index.js"></script>
+    </body>
+    </html>
+</asp:Content>
+
+----------------------------------------------------
+web file.cs
+----------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Inventory.Web.Models;
+using System.Configuration;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Text;
+using System.IO;
+
+namespace Inventory.Web
+{
+    public partial class UserMaster : System.Web.UI.Page
+    {
+        protected async void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                await BindGridViewAsync();
+                btnSubmit.Visible = true;
+
+
+            }
+        }
+
+        private void ClearInputFields()
+        {
+            txtName.Text = "";
+            txtUserName.Text = "";
+            txtUsertype.Text = "";
+            txtbranchid.Text = "";
+            txtCompanyid.Text = "";
+        }
+        private async Task AddUserAsync(UserMasterMod userMasterMod)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["APIBaseUrl"].ToString());
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                string payloadJson = JsonConvert.SerializeObject(userMasterMod);
+                HttpContent content = new StringContent(payloadJson, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await httpClient.PostAsync("api/Usermaster/AddUserMaster", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    await BindGridViewAsync();
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+        private async Task BindGridViewAsync()
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["APIBaseUrl"].ToString());
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = await httpClient.GetAsync("api/Usermaster/GetAllUserMasters");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    List<UserMasterMod> userMasters = JsonConvert.DeserializeObject<List<UserMasterMod>>(responseData);
+
+                    grdItemEntry.DataSource = userMasters;
+                    grdItemEntry.DataBind();
+                }
+                else
+                {
+                    // Handle failure to fetch data
+                }
+            }
+        }
+
+        protected async void btnSubmit_Click(object sender, EventArgs e)
+        {
+            int branchId = Convert.ToInt32(txtbranchid.Text.Trim());
+            int companyId = Convert.ToInt32(txtCompanyid.Text.Trim());
+
+            UserMasterMod userMasterMod = new UserMasterMod
+            {
+                Name = txtName.Text.Trim(),
+                UserName = txtUserName.Text.Trim(),
+                UserType = txtUsertype.Text.Trim(),
+                BranchId = branchId,
+                CompanyId = companyId,
+            };
+            await AddUserAsync(userMasterMod);
+            ClearInputFields();
+
+        }
+
+        string Id;
+        protected void lnkupdate_Click(object sender, EventArgs e)
+        {
+            btnUpdate.Visible = true;
+            btnSubmit.Visible = false;
+
+            Id = (sender as LinkButton).CommandArgument;
+            Session["UId"] = Id;
+            UsersDatabyid();
+        }
+        public async void UsersDatabyid()
+        {
+
+            try
+            {
+                int uid = Convert.ToInt32(Session["UId"]);
+                // Fetch user data by ID
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["APIBaseUrl"].ToString());
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = await httpClient.GetAsync($"api/Usermaster/GetUserMasterById/{uid}");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseData = await response.Content.ReadAsStringAsync();
+                        UserMasterMod user = JsonConvert.DeserializeObject<UserMasterMod>(responseData);
+
+                        // Populate UI fields
+                        txtName.Text = user.Name;
+                        txtUserName.Text = user.UserName;
+                        txtUsertype.Text = user.UserType;
+                        txtbranchid.Text = user.BranchId.ToString();
+                        txtCompanyid.Text = user.CompanyId.ToString();
+                    }
+                    else
+                    {
+                        // Handle failure to fetch user data
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+            }
+
+        }
+
+        protected async void btnUpdate_Click(object sender, EventArgs e)
+        {
+            int userId = Convert.ToInt32(Session["UId"]);
+            int branchId = Convert.ToInt32(txtbranchid.Text.Trim());
+            int companyId = Convert.ToInt32(txtCompanyid.Text.Trim());
+
+            UserMasterMod userMasterMod = new UserMasterMod
+            {
+                id = userId, // Assuming there's an Id property in UserMasterMod
+                Name = txtName.Text.Trim(),
+                UserName = txtUserName.Text.Trim(),
+                UserType = txtUsertype.Text.Trim(),
+                BranchId = branchId,
+                CompanyId = companyId,
+            };
+
+            // Call the update API endpoint
+            // Modify the endpoint and payload as per your API
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["APIBaseUrl"].ToString());
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                string payloadJson = JsonConvert.SerializeObject(userMasterMod);
+                HttpContent content = new StringContent(payloadJson, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await httpClient.PutAsync($"api/Usermaster/UpdateUserMaster/{userId}", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Handle success
+                    // Hide update button and show submit button
+                    btnUpdate.Visible = false;
+                    btnSubmit.Visible = true;
+                    // Clear input fields
+                    ClearInputFields();
+                    // Refresh gridview
+                    await BindGridViewAsync();
+                }
+                else
+                {
+                    // Handle failure
+                }
+            }
+        }
+
+        protected async void lnkDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LinkButton lnkDelete = (LinkButton)sender;
+                int userId = Convert.ToInt32(lnkDelete.CommandArgument);
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri(ConfigurationManager.AppSettings["APIBaseUrl"].ToString());
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage response = await httpClient.DeleteAsync($"api/Usermaster/DeleteUserMaster?id={userId}");
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Handle success
+                        // Refresh gridview
+                        await BindGridViewAsync();
+                    }
+                    else
+                    {
+                        // Handle failure
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+            }
+        }
+    }
+}
+----------------------------
+Models
+-------------------------------
+UserMasterModel.cs
+---------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Inventory.Web.Models
+{
+    public class UserMasterModel
+    {
+    }
+    public class UserMasterMod
+    {
+        public int id { get; set; }
+        public string Name { get; set; }
+        public string UserName { get; set; }
+        public string UserType { get; set; }
+        public int BranchId { get; set; }
+        public int CompanyId { get; set; }
+        public int CreatedBy { get; set; }
+        public string Password { get; set; }
+
+        public UserMasterMod()
+        {
+            id = 0;
+            Name = string.Empty;
+            UserName = string.Empty;
+            UserType = string.Empty;
+            BranchId = 0;
+            CompanyId = 0;
+            CreatedBy = 0;
+            Password = string.Empty;
+        }
+    }
+}
+-----------------------------------------------------
+------------------Web file End------------------
+-----------------Api file starts----------------
+-------------------------------------------------------
+startup.cs
+--------------------------------------------------------
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
+
+namespace Inventory.API
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+            });
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1");
+
+            });
+            app.UseHttpsRedirection();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
+    }
+}
+----------------------------------------------------------
+appsetting.json
+-------------------------------------------------------------
+{
+  "ConnectionStrings": {
+    "SqlConnection": "Server=DESKTOP-EDS4A3Q\\SQLEXPRESS;Database=API;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;Encrypt=True"
+  },
+  "ApiBaseUrl": "https://localhost:44338",
+
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "AllowedHosts": "*"
+
+}
+----------------------------------------------------
+ObjectModels(2 file)
+-----------------------------
+CommonModel.cs
+----------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Inventory.API.ObjectModels
+{
+    public class CommonModel
+    {
+        public class StatusMsg
+        { 
+        
+            public ushort StatusCode { set; get; }
+            public ushort StatusMessage { set; get; }
+
+        }
+    }
+}
+--------------------------------------------------------------
+UserMasterModel.cs
+-----------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Inventory.API.ObjectModels
+{
+    public class UserMasterModel
+    {
+
+    }
+
+    public class UserMasterM
+    {
+        public int id { get; set; }
+        public string Name { get; set; }
+        public string UserName { get; set; }
+        public string UserType { get; set; }
+        public int BranchId { get; set; }
+        public int CompanyId { get; set; }
+        public int CreatedBy { get; set; }
+        public string Password { get; set; }
+
+        public UserMasterM()
+        {
+            id = 0;
+            Name = string.Empty;
+            UserName = string.Empty;
+            UserType = string.Empty;
+            BranchId = 0;
+            CompanyId = 0;
+            CreatedBy = 0;
+            Password = string.Empty;
+        }
+    }
+}
+--------------------------------------------------------
+DataContext folder
+-----------------------------------------
+UsermasterDataContext.cs
+-----------------------------------------------------------
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Inventory.API.ObjectModels;
+using System.Data;
+using System.Data.SqlClient;
+using static Inventory.API.ObjectModels.CommonModel;
+
+namespace Inventory.API.DataContext
+{
+    public class UserMasterDataContext
+    {
+        private readonly string _connectionString;
+
+        public UserMasterDataContext(IConfiguration configuration)
+        {
+            _connectionString = configuration.GetSection("ConnectionStrings").GetSection("SqlConnection").Value;
+        }
+
+        private void LogError(Exception ex)
+        {
+            string projectPath = Directory.GetCurrentDirectory();
+            string logFilePath = Path.Combine(projectPath, "ErrorLog.txt");
+
+            using (StreamWriter writer = new StreamWriter(logFilePath, true))
+            {
+                writer.WriteLine("--------------------------------------------------------------------------------------------");
+                writer.WriteLine("Error Logged at " + DateTime.Now);
+                writer.WriteLine("Error Message: " + ex.Message);
+                writer.WriteLine("Stack Trace: " + ex.StackTrace);
+
+                if (ex.InnerException != null)
+                {
+                    writer.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                    writer.WriteLine("Inner Exception Stack Trace: " + ex.InnerException.StackTrace);
+                }
+            }
+        }
+
+        public StatusMsg AddUserMaster(UserMasterM objUserMaster)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SP_InsertUserMasterdata";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@name", objUserMaster.Name);
+                    cmd.Parameters.AddWithValue("@username", objUserMaster.UserName);
+                    cmd.Parameters.AddWithValue("@usertype", objUserMaster.UserType);
+                    cmd.Parameters.AddWithValue("@branchid", objUserMaster.BranchId);
+                    cmd.Parameters.AddWithValue("@companyid", objUserMaster.CompanyId);
+                 
+
+                    var newId = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    return new StatusMsg { };
+                }
+                catch (Exception ex)
+                {
+                    LogError(ex);
+                    return new StatusMsg {};
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public StatusMsg UpdateUserMaster(int id, UserMasterM objUserMaster)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SP_UpdateUserMaster";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@name", objUserMaster.Name);
+                    cmd.Parameters.AddWithValue("@username", objUserMaster.UserName);
+                    cmd.Parameters.AddWithValue("@usertype", objUserMaster.UserType);
+                    cmd.Parameters.AddWithValue("@branchid", objUserMaster.BranchId);
+                    cmd.Parameters.AddWithValue("@companyid", objUserMaster.CompanyId);
+                    //cmd.Parameters.AddWithValue("@modifiedby", objUserMaster.ModifiedBy);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        return new StatusMsg { };
+                    }
+                    else
+                    {
+                        return new StatusMsg { };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogError(ex);
+                    return new StatusMsg { };
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public List<UserMasterM> GetAllUserMasters()
+        {
+            List<UserMasterM> userMasters = new List<UserMasterM>();
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SP_GetUserMaster";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+
+                    while (dataReader.Read())
+                    {
+                        UserMasterM userMaster = new UserMasterM
+                        {
+                            id = Convert.ToInt32(dataReader["Id"]),
+                            Name = dataReader["Name"].ToString(),
+                            UserName = dataReader["UserName"].ToString(),
+                            UserType = dataReader["UserType"].ToString(),
+                            BranchId = Convert.ToInt32(dataReader["BranchId"]),
+                            CompanyId = Convert.ToInt32(dataReader["CompanyId"]),
+                        };
+
+                        userMasters.Add(userMaster);
+                    }
+
+                    dataReader.Close();
+                }
+                catch (Exception ex)
+                {
+                    LogError(ex);
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return userMasters;
+        }
+
+        public UserMasterM GetUserMasterById(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SP_GetUserbyid";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    SqlDataReader dataReader = cmd.ExecuteReader();
+
+                    if (dataReader.Read())
+                    {
+                        UserMasterM userMaster = new UserMasterM
+                        {
+                            id = Convert.ToInt32(dataReader["Id"]),
+                            Name = dataReader["Name"].ToString(),
+                            UserName = dataReader["UserName"].ToString(),
+                            UserType = dataReader["UserType"].ToString(),
+                            BranchId = Convert.ToInt32(dataReader["BranchId"]),
+                            CompanyId = Convert.ToInt32(dataReader["CompanyId"]),
+                            
+                        };
+
+                        return userMaster;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogError(ex);
+                    return null;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public bool DeleteUserMaster(int Id)
+        {
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SP_DeleteUserMaster";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    conn.Open();
+
+                    cmd.Parameters.AddWithValue("@Id", Id);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+                catch (Exception ex)
+                {
+                    LogError(ex);
+                    return false;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+    }
+}
+---------------------------------------------------------------------------
+Controllers
+-------------------------------
+UserMasterController.cs
+---------------------------------------------------------------------------
+using Inventory.API.BussinessContext;
+using Inventory.API.DataContext;
+using Inventory.API.ObjectModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Inventory.API.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UsermasterController : ControllerBase
+    {
+
+        private readonly IConfiguration _configuration;
+        private readonly UserMasterBussinessContext _userMasterBusinessContext;
+
+        public UsermasterController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            _userMasterBusinessContext = new UserMasterBussinessContext(new UserMasterDataContext(_configuration));
+        }
+
+        //INSERT
+        [Route("AddUserMaster")]
+        [HttpPost]
+        public IActionResult AddUserMaster(UserMasterM objUserMaster)
+        {
+            try
+            {
+                var result = _userMasterBusinessContext.AddUserMaster(objUserMaster);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Handle and log the exception
+                return StatusCode(500, "An error occurred while adding the user master.");
+            }
+        }
+
+        //UPDATE
+        [Route("UpdateUserMaster/{id}")]
+        [HttpPut]
+        public IActionResult UpdateUserMaster(int id, UserMasterM objUserMaster)
+        {
+            try
+            {
+                var result = _userMasterBusinessContext.UpdateUserMaster(id, objUserMaster);
+                if (result.StatusCode == 1)
+                {
+                    return StatusCode(500, result.StatusMessage);
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                // Handle and log the exception
+                return StatusCode(500, "An error occurred while updating the user master.");
+            }
+        }
+
+        //GET ALL
+        [Route("GetAllUserMasters")]
+        [HttpGet]
+        public IActionResult GetAllUserMasters()
+        {
+            try
+            {
+                var userMasters = _userMasterBusinessContext.GetAllUserMasters();
+                return Ok(userMasters);
+            }
+            catch (Exception ex)
+            {
+                // Handle and log the exception
+                return StatusCode(500, "An error occurred while retrieving user masters.");
+            }
+        }
+
+        //GET BY ID
+        [Route("GetUserMasterById/{id}")]
+        [HttpGet]
+        public IActionResult GetUserMasterById(int id)
+        {
+            try
+            {
+                var userMaster = _userMasterBusinessContext.GetUserMasterById(id);
+                if (userMaster == null)
+                {
+                    return NotFound();
+                }
+                return Ok(userMaster);
+            }
+            catch (Exception ex)
+            {
+                // Handle and log the exception
+                return StatusCode(500, "An error occurred while retrieving the user master.");
+            }
+        }
+
+        //DELETE
+        [Route("DeleteUserMaster")]
+        [HttpDelete]
+        public IActionResult DeleteUserMaster(int id)
+        {
+            try
+            {
+                var result = _userMasterBusinessContext.DeleteUserMaster(id);
+                if (!result)
+                {
+                    return NotFound();
+                }
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                // Handle and log the exception
+                return StatusCode(500, "An error occurred while deleting the user master.");
+            }
+        }
+
+        // ERROR LOG FILES
+        private void LogError(Exception ex)
+        {
+            string projectPath = AppDomain.CurrentDomain.BaseDirectory;
+            string logFolderPath = Path.Combine(projectPath, "ErrorLogs");
+            string logFilePath = Path.Combine(logFolderPath, "ErrorLog.txt");
+
+            // Create the directory if it doesn't exist
+            Directory.CreateDirectory(logFolderPath);
+
+            using (StreamWriter writer = new StreamWriter(logFilePath, true))
+            {
+                writer.WriteLine("------------------------------------------------------------");
+                writer.WriteLine("Error Logged at " + DateTime.Now);
+                writer.WriteLine("Error Message: " + ex.Message);
+                writer.WriteLine("Stack Trace: " + ex.StackTrace);
+
+                if (ex.InnerException != null)
+                {
+                    writer.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                    writer.WriteLine("Inner Exception Stack Trace: " + ex.InnerException.StackTrace);
+                }
+            }
+        }
+        // END OF ERROR LOG FILES
+    }
+}
+----------------------------------------------------
+BussinessContext Folder
+------------------------------------------
+UsermasterBussinessContext.cs
+---------------------------------------------------------
+using Inventory.API.DataContext;
+using Inventory.API.ObjectModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using static Inventory.API.ObjectModels.CommonModel;
+
+namespace Inventory.API.BussinessContext
+{
+    public class UserMasterBussinessContext
+    {
+
+        private readonly UserMasterDataContext _userMasterDataContext;
+
+        public UserMasterBussinessContext(UserMasterDataContext userMasterDataContext)
+        {
+            _userMasterDataContext = userMasterDataContext;
+        }
+
+        public StatusMsg AddUserMaster(UserMasterM objUserMaster)
+        {
+            try
+            {
+                var result = _userMasterDataContext.AddUserMaster(objUserMaster);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // Handle and log the exception
+                return new StatusMsg {};
+            }
+        }
+
+        public StatusMsg UpdateUserMaster(int id, UserMasterM objUserMaster)
+        {
+            try
+            {
+                var result = _userMasterDataContext.UpdateUserMaster(id, objUserMaster);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // Handle and log the exception
+                return new StatusMsg {};
+            }
+        }
+
+        public List<UserMasterM> GetAllUserMasters()
+        {
+            try
+            {
+                var userMasters = _userMasterDataContext.GetAllUserMasters();
+                return userMasters;
+            }
+            catch (Exception ex)
+            {
+                // Handle and log the exception
+                return new List<UserMasterM>();
+            }
+        }
+
+        public UserMasterM GetUserMasterById(int id)
+        {
+            try
+            {
+                var userMaster = _userMasterDataContext.GetUserMasterById(id);
+                return userMaster;
+            }
+            catch (Exception ex)
+            {
+                // Handle and log the exception
+                return null;
+            }
+        }
+
+        public bool DeleteUserMaster(int id)
+        {
+            try
+            {
+                var result = _userMasterDataContext.DeleteUserMaster(id);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                // Handle and log the exception
+                return false;
+            }
+        }
+    }
+}
+-------------------------------------------------------------------------
+Dependencies
+--------------
+newtonsoft.json\13.0.3\
+swashbuckle.aspnetcore\6.5.0\
+swashbuckle.aspnetcore.swaggerui\6.5.0\
+system.data.sqlclient\4.8.6\
